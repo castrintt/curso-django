@@ -14,27 +14,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.http import HttpResponse as response
+from django.urls import path, include
 
-
-#HTTP REQUEST
-def home(request):
-    return response('HOME')
-    # HTTP RESPONSE
-def sobre(request):
-    return response('SOBRE')
-    # HTTP RESPONSE
-def contato(request):
-    return response('CONTATO')
-    # HTTP RESPONSE
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',home),
-    path('sobre/',sobre),
-    path('contato/',contato),
-]
+    path('recipes/', include('recipes.urls')),
+    path('novo/', include('novo.urls'))
+
+] 
+
+# include recebe uma string -> onde voce vai indicar o nome do app e o nome do arquivo que tem os arquivos onde voce vai importar
 
 
+# como o caminho (path) onde usamos o include esta como '' quer dizer que ele está na rota default
+
+# se voce quiser adicionar varias rotas filhas usando include na rota hipotetica sobre, voce faria assim
+
+# from django.urls import path, include
+
+# urlpatterns =[
+#     path('sobre/', include('detalhes.urls'))
+# ]
