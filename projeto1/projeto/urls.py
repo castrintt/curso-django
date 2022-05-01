@@ -25,15 +25,6 @@ urlpatterns = [
 
 ] 
 
-# include recebe uma string -> onde voce vai indicar o nome do app e o nome do arquivo que tem os arquivos onde voce vai importar
 
 
-# como o caminho (path) onde usamos o include esta como '' quer dizer que ele está na rota default
 
-# se voce quiser adicionar varias rotas filhas usando include na rota hipotetica sobre, voce faria assim
-
-# from django.urls import path, include
-
-# urlpatterns =[
-#     path('sobre/', include('detalhes.urls'))
-# ]
