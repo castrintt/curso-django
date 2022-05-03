@@ -18,6 +18,7 @@
 # dessa forma
 
 from django.shortcuts import render
+from django.urls import URLPattern
 
 # agora como usamos o render?
 
@@ -220,3 +221,138 @@ def home(request):
     # só indicamos que esta dentro da pasta recipes
 
 # por isso é EXPLICITAMENTE necesssario colocar a nome da pasta dentro de templates igual ao nome da pasta app
+
+
+
+__________________________________________
+
+# aula 2 
+
+# se voce apertar control click no render
+
+# voce tem todos os parametros que ele aceita
+
+def render(
+    request, template_name, context=None, content_type=None, status=None, using=None
+)
+
+# uma requesta, nome do template, context,contant_type, status e using
+
+# vamos entender cada um desses parametros de render
+
+# o primeiro é o context
+
+# podemos passar dentro do context um dicionario por exemplo
+
+def home(request):
+    return render(request,'nome_ap/template.html', context={
+        # passando uma chave nome com valor igor
+
+        'name': 'igor'
+    })
+
+# podemos acessar esse parametro dentro do nosso template (html) da seguinte forma
+# sintaxe {{ chave }}
+
+# logo dentro do template teriamos 
+
+# passando o dado (como se fosse um dado dinamico em vue js, entre 2 chaves)
+# sintaxe : {{ dado }}
+
+# <!DOCTYPE html>
+# <html lang="en">
+# <head>
+#     <meta charset="UTF-8">
+#     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+#     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+#     <title>Document</title>
+# </head>
+# <body>
+#     <h1>Temos um titulo</h1>
+#     <h2>
+#         {{ name }} # {{ dado }}
+#     </h2>
+
+# </body>
+# </html>
+
+# segue imagem_________________
+
+
+# podemos alterar manualmente o status da solicitação com o parametro status
+# podemos fazer uma aplicação ter o status 404 de error por exemplo
+
+def home(request):
+    return render(request,'app/template.html', status=200)
+
+
+
+# retorna um status 200 para a request(solicitação)
+
+
+def home(request):
+    return render(request,'app/template.html', status=404)
+
+# retorna um status 200 para a request
+
+
+# OBS:  dentro de templates  podemos fazer if, for e varias outras coisas de forma dinamica, como no exemplo do context
+
+
+
+
+# VOLTANDO A CONFIGURAÇÕES EM SETTINGS.py
+# onde se encontra a variavel TEMPLATES, mais especifico na lista dentro dela chamada "DIRS":[
+
+# ]
+
+# nos indicamos o caminho para onde o django busca templates para serem rederizados
+
+# passamos com a seguinte sintaxe
+
+# 'DIRS': [
+#     BASE_DIR / 'nome_da_pasta'/ 'nome_outra_pasta (se houver)'
+
+# ]
+
+# no nosso caso estamos trabalhando com a pasta teste chamada base_templates, onde configuramos dentro das rotas, que o django não deveria usar esse arquivo e sim o arquivo home que esta dentro de templates na pasta recipes
+
+# para isso usamos a sintaxe de pastas dentro das urls
+
+# -->
+
+urlpatterns = [
+
+    path('','recipes/home.html') #dessa forma
+]
+
+# pense agora que dentro do mesmo arquivo recipes temos outra pasta de templates chamada
+# templates_teste
+# e dentro dela temos um arquivo home.html
+
+# como indicamos para o django que ele deve usar esse caminho??
+
+# VAMOS NO ARQUIVO SETTINGS da pasta root do projeto (chamada projeto nesse caso)
+
+# na variavel TEMPLATES
+# na lista DIRS dentro dela
+
+# 'DIRS':[ 
+#     BASE_DIR / 'recipes' / 'templates_teste'
+#             #/ pasta / pasta
+# ]
+
+# para rederizar esse arquivo teremos que fazer o seguinte dentro urls.py
+
+def contato(request):
+    return render(request,'temp/temp.html')
+
+# sendo que a estrutura de pastas esta assim
+
+# recipes
+# -----templates
+# -----------recipes
+# ----------------home.html
+# -----templates_teste
+# ------------temp
+# ----------------temp.html
