@@ -356,3 +356,6 @@ def contato(request):
 # -----templates_teste
 # ------------temp
 # ----------------temp.html
+
+
+# AUlA 3
